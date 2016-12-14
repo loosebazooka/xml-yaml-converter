@@ -1,0 +1,47 @@
+group 'com.loosebazooka'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+sourceCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+  downloader
+}
+
+dependencies {
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+  testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+  downloader "com.google.appengine:appengine-java-sdk:+"
+}
+
+task downloadSdk {
+  def sdkZip = project.configurations.downloader.singleFile
+  def sdksDir = new File(project.buildDir, "appengine-sdk")
+  inputs.file sdkZip
+  outputs.dir sdksDir
+  def unzippedSdk = new File(sdksDir, sdkZip.name.substring(0, sdkZip.name.lastIndexOf('.')))
+  project.ext.toolsJar = new File(unzippedSdk, "lib/appengine-tools-api.jar")
+
+  doLast {
+    ant.unzip(src: sdkZip, dest: sdksDir)
+  }
+}
+
+assemble.dependsOn(downloadSdk);
+
+task runConverter(type: JavaExec) {
+  classpath = files(project.properties.jar.archivePath,project.ext.toolsJar)
+  main = "com.loosebazooka.Converter"
+  def yamlOut = new File(project.buildDir, "yaml-out");
+  args = project.findProperty('webapp.dir')? [project.findProperty('webapp.dir')] : []
+  systemProperties = ["yaml.out" : yamlOut]
+}
+
+runConverter.dependsOn("assemble");
+
