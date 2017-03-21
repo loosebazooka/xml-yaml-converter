@@ -36,7 +36,7 @@ $> tree build/yaml-out
 
 yaml-out/
 ├── cron.yaml
-├── datastore-indexes.yaml
+├── index.yaml
 ├── dispatch.yaml
 ├── dos.yaml
 └── queue.yaml
