@@ -1,19 +1,19 @@
-#XML -> YAML converter
+# XML -> YAML converter
 
-###Usage
+## Usage
 
 Clone the repository
 ```
-$> git clone https://github.com/loosebazooka/xml-yaml-converter.git
+$ git clone https://github.com/loosebazooka/xml-yaml-converter.git
 ```
 
 Run the converter
 ```
-$> ./gradlew runConverter -Pwebapp.dir=<path to your webapp dir>
+$ ./gradlew runConverter -Pwebapp.dir=<path to your webapp dir>
 
 # or use the sample files
 
-$> ./gradlew runConverter -Pwebapp.dir=src/test/resources/webapp
+$ ./gradlew runConverter -Pwebapp.dir=src/test/resources/webapp
 
 ```
 `<path to your webapp dir>` can be anywhere, it doesn't have to be a whole appengine app
