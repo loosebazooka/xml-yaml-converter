@@ -32,7 +32,7 @@ webapp/
 
 Congrats, your yamls are in
 ```
-$> tree build/yaml-out
+$ tree build/yaml-out
 
 yaml-out/
 ├── cron.yaml
